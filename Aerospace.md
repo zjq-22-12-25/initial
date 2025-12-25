@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     %% 定义节点样式
     classDef root fill:#f96,stroke:#333,stroke-width:2px;
@@ -38,4 +39,5 @@ graph TD
     %% 题目属性细节 (三元组: 题目类型 -- 包含 --> 属性)
     Type -- 选项数 --> Opt[6个选项 A-F]:::item
     Type -- 答案形式 --> Ans[多选 Multiple Correct]:::item
-    Type -- 难度分级 --> Diff[易/中/难]:::item
+    Type -- 答案形式 --> Diff[难度: 易/中/难]:::item
+```
