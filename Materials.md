@@ -1,3 +1,4 @@
+```mermaid
 graph LR
     %% 核心实体：基准测试集
     Benchmark(LLM4Mat-Bench)
@@ -127,3 +128,4 @@ graph LR
     P_Bandgap_MP -.-> TaskReg
     P_LCD_hMOF -.-> TaskReg
     P_BandgapOPT_JDFT -.-> TaskReg
+```
