@@ -1,66 +1,52 @@
 graph LR
-    %% 核心节点定义
-    Dataset[BlendNet 数据集]
-    
-    %% 第一层级：主要维度
-    Dimension_Category[维度 1: 物品类别]
-    Dimension_Type[维度 2: 指令类型]
-    Dimension_Complexity[维度 3: 复杂度/长度]
-    Composition[数据构成]
+    %% 核心节点：BlendNet 数据集
+    Dataset[("BlendNet 数据集")]
 
-    %% 关系连接：数据集 -> 维度
-    Dataset -->|基于 Locarno 分类系统| Dimension_Category
-    Dataset -->|基于 MBTI 人格类型| Dimension_Type
-    Dataset -->|基于 单词数量| Dimension_Complexity
-    Dataset -->|组成部分| Composition
+    %% 维度 1: 物品类别 (基于 Locarno 分类系统)
+    Dataset -->|维度1: 物品类别| Class_Locarno["16种物品类别"]
+    Class_Locarno -->|包含| Cat1["Tech (科技设备)"]
+    Class_Locarno -->|包含| Cat2["Music (乐器)"]
+    Class_Locarno -->|包含| Cat3["Animal (动物用品)"]
+    Class_Locarno -->|包含| Cat4["Furn (家具)"]
+    Class_Locarno -->|包含| Cat5["Transport (交通工具)"]
+    Class_Locarno -->|包含| Cat6["Office (办公用品)"]
+    Class_Locarno -->|包含| Cat7["Food (食品)"]
+    Class_Locarno -->|包含| Cat8["MedLab (医疗实验)"]
+    Class_Locarno -->|包含| Cat9["Fashion (时尚服饰)"]
+    Class_Locarno -->|包含| Cat10["Graphics (图形符号)"]
+    Class_Locarno -->|包含| Cat11["Recre (娱乐体育)"]
+    Class_Locarno -->|包含| Cat12["Tools (工具硬件)"]
+    Class_Locarno -->|包含| Cat13["Travel (旅行用品)"]
+    Class_Locarno -->|包含| Cat14["Power (电力系统)"]
+    Class_Locarno -->|包含| Cat15["Cuisine (烹饪机器)"]
+    Class_Locarno -->|包含| Cat16["Home (家居用品)"]
 
-    %% 维度 1: 物品类别 (Object Categories) [Source: 440-457]
-    Dimension_Category --> Cat_Tech["Tech (科技设备)"]
-    Dimension_Category --> Cat_Music["Music (乐器)"]
-    Dimension_Category --> Cat_Animal["Animal (动物用品)"]
-    Dimension_Category --> Cat_Furn["Furn (家具)"]
-    Dimension_Category --> Cat_Transport["Transport (交通工具)"]
-    Dimension_Category --> Cat_Office["Office (办公用品)"]
-    Dimension_Category --> Cat_Food["Food (食品)"]
-    Dimension_Category --> Cat_MedLab["MedLab (医疗/实验设备)"]
-    Dimension_Category --> Cat_Fashion["Fashion (时尚服饰)"]
-    Dimension_Category --> Cat_Graphics["Graphics (图形符号)"]
-    Dimension_Category --> Cat_Recre["Recre (娱乐/体育用品)"]
-    Dimension_Category --> Cat_Tools["Tools (工具硬件)"]
-    Dimension_Category --> Cat_Travel["Travel (旅行用品)"]
-    Dimension_Category --> Cat_Power["Power (电力系统)"]
-    Dimension_Category --> Cat_Cuisine["Cuisine (烹饪机器)"]
-    Dimension_Category --> Cat_Home["Home (家居用品)"]
+    %% 维度 2: 指令类型 (基于 MBTI)
+    Dataset -->|维度2: 指令类型| Class_MBTI["8种指令语气"]
+    Class_MBTI -->|包含| Type1["Verbal (动作问答)"]
+    Class_MBTI -->|包含| Type2["Look (外观描述)"]
+    Class_MBTI -->|包含| Type3["Use (特定用途)"]
+    Class_MBTI -->|包含| Type4["Deco (装饰风格)"]
+    Class_MBTI -->|包含| Type5["Feel (感官体验)"]
+    Class_MBTI -->|包含| Type6["Comp (比较/历史)"]
+    Class_MBTI -->|包含| Type7["Feat (特征聚焦)"]
+    Class_MBTI -->|包含| Type8["Design (创意设计)"]
 
-    %% 维度 2: 指令类型 (Instruction Types) [Source: 459-475]
-    Dimension_Type --> Type_Verbal["Verbal (动作/语言问答)"]
-    Dimension_Type --> Type_Look["Look (外观描述)"]
-    Dimension_Type --> Type_Use["Use (特定用途)"]
-    Dimension_Type --> Type_Deco["Deco (装饰风格)"]
-    Dimension_Type --> Type_Feel["Feel (感官/触觉)"]
-    Dimension_Type --> Type_Comp["Comp (比较/历史风格)"]
-    Dimension_Type --> Type_Feat["Feat (特征描述)"]
-    Dimension_Type --> Type_Design["Design (创意设计)"]
+    %% 维度 3: 复杂度 (基于单词数量)
+    Dataset -->|维度3: 复杂度| Class_Complexity["5个长度等级"]
+    Class_Complexity -->|包含| Len1["VS (极短)"]
+    Class_Complexity -->|包含| Len2["S (短)"]
+    Class_Complexity -->|包含| Len3["M (中等)"]
+    Class_Complexity -->|包含| Len4["L (长)"]
+    Class_Complexity -->|包含| Len5["E (扩展/超长)"]
 
-    %% 维度 3: 复杂度/长度 (Instruction Length) [Source: 478-485]
-    Dimension_Complexity --> Len_VS["VS (极短)"]
-    Dimension_Complexity --> Len_S["S (短)"]
-    Dimension_Complexity --> Len_M["M (中等)"]
-    Dimension_Complexity --> Len_L["L (长)"]
-    Dimension_Complexity --> Len_E["E (扩展/超长)"]
+    %% 数据集构成
+    Dataset -->|数据构成| Composition["数据来源"]
+    Composition -->|人工验证| Part1["BlendNet-Human (2k)"]
+    Composition -->|GPT验证| Part2["BlendNet-GPT (6k)"]
 
-    %% 数据构成 [Source: 153]
-    Composition --> Part_Human["BlendNet-Human (人工验证, 2k)"]
-    Composition --> Part_GPT["BlendNet-GPT (GPT验证, 6k)"]
-
-    %% 样式定义 (可选，用于美化)
-    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef dimNode fill:#bbf,stroke:#333,stroke-width:1px;
-    classDef leafNode fill:#efe,stroke:#333,stroke-width:1px;
-
-    class Dataset mainNode;
-    class Dimension_Category,Dimension_Type,Dimension_Complexity,Composition dimNode;
-    class Cat_Tech,Cat_Music,Cat_Animal,Cat_Furn,Cat_Transport,Cat_Office,Cat_Food,Cat_MedLab,Cat_Fashion,Cat_Graphics,Cat_Recre,Cat_Tools,Cat_Travel,Cat_Power,Cat_Cuisine,Cat_Home leafNode;
-    class Type_Verbal,Type_Look,Type_Use,Type_Deco,Type_Feel,Type_Comp,Type_Feat,Type_Design leafNode;
-    class Len_VS,Len_S,Len_M,Len_L,Len_E leafNode;
-    class Part_Human,Part_GPT leafNode;
+    %% 引用来源说明
+    [cite_start]%% 类别参考: [cite: 95, 440-457]
+    [cite_start]%% 类型参考: [cite: 96, 458-475]
+    [cite_start]%% 长度参考: [cite: 97, 476-485]
+    [cite_start]%% 构成参考: [cite: 153]
