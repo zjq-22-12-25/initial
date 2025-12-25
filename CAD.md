@@ -1,3 +1,4 @@
+```mermaid
 graph LR
     %% 核心节点：BlendNet 数据集
     Dataset[("BlendNet 数据集")]
@@ -50,3 +51,4 @@ graph LR
     [cite_start]%% 类型参考: [cite: 96, 458-475]
     [cite_start]%% 长度参考: [cite: 97, 476-485]
     [cite_start]%% 构成参考: [cite: 153]
+```
